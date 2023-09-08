@@ -2,6 +2,7 @@ package hr_system
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/go-rod/rod"
 )
@@ -13,14 +14,21 @@ type NUEIP struct {
 	URL      string
 }
 
-func (nueip NUEIP) Punch(status PunchStatus) error {
+func (nueip NUEIP) Punch(status PunchStatus) (errs []error) {
 	if !status.IsValid() {
-		return errors.New("wrong punch status")
+		errs = append(errs, errors.New("wrong punch status"))
+		return
 	}
 
 	// go to the login page
 	browser := rod.New().MustConnect()
-	defer browser.MustClose()
+	defer func() {
+		browserCloseErr := browser.Close()
+		fmt.Println("browser closed")
+		if browserCloseErr != nil {
+			errs = append(errs, browserCloseErr)
+		}
+	}()
 
 	page := browser.MustPage(nueip.URL)
 	page.MustWindowMaximize()
@@ -63,5 +71,5 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	punchedButton := punchButton + ".punched"
 	page.MustElement(punchedButton)
 
-	return nil
+	return errs
 }

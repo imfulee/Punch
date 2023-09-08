@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/imfulee/punch/hr_system"
 )
 
@@ -15,5 +17,8 @@ func main() {
 		URL:      config.url,
 	}
 
-	nueip.Punch(hr_system.PunchOut)
+	punchErrs := nueip.Punch(hr_system.PunchOut)
+	if punchErrs != nil {
+		fmt.Println(punchErrs)
+	}
 }
