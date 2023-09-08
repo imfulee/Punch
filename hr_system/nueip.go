@@ -34,6 +34,7 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 
 	// redirect
 	page.MustWaitStable()
+	// deny geolocation permission
 	page.MustEval(`() => {
         // Override the navigator.geolocation object
         Object.defineProperty(navigator, 'geolocation', {
@@ -49,7 +50,7 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
     }`)
 
 	// punch
-	var punchButton string
+	punchButton := ""
 	if status == PunchIn {
 		punchButton = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(1) > button.punch-btn"
 	} else {
@@ -57,7 +58,9 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	}
 	page.MustElement(punchButton).MustClick()
 
-	page.MustWaitStable()
+	// wait for button to be punched
+	punchedButton := punchButton + ".punched"
+	page.MustElement(punchedButton)
 
 	return nil
 }

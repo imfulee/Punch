@@ -15,5 +15,5 @@ func main() {
 		URL:      config.url,
 	}
 
-	nueip.Punch(hr_system.PunchIn)
+	nueip.Punch(hr_system.PunchOut)
 }
