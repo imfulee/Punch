@@ -33,7 +33,14 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	page.MustElement("button.login-button").MustClick()
 
 	// redirect
-	page.MustWaitStable()
+	punchButton := ""
+	if status == PunchIn {
+		punchButton = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(1) > button.punch-btn"
+	} else {
+		punchButton = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(2) > button.punch-btn"
+	}
+	page.MustElement(punchButton)
+
 	// deny geolocation permission
 	page.MustEval(`() => {
         // Override the navigator.geolocation object
@@ -50,12 +57,6 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
     }`)
 
 	// punch
-	punchButton := ""
-	if status == PunchIn {
-		punchButton = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(1) > button.punch-btn"
-	} else {
-		punchButton = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(2) > button.punch-btn"
-	}
 	page.MustElement(punchButton).MustClick()
 
 	// wait for button to be punched
