@@ -9,7 +9,7 @@ const (
 
 func (p PunchStatus) IsValid() bool {
 	switch p {
-	case PunchStatus(PunchIn), PunchStatus(PunchOut):
+	case PunchIn, PunchOut:
 		return true
 	default:
 		return false
