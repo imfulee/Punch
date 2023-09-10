@@ -44,6 +44,6 @@ go run . -rod=show,devtools
 Things that I would like to further develop
 
 - Some reporting mechanism that it doesn't work, possibly by sending email?
-- Add container building definitions (ex `docker-compose.yml`)
+- Add container building definitions (ex `Dockerfile`)
 - Add CI to build container
 - Write test to check if punch in works
