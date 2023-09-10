@@ -2,7 +2,6 @@ package hr_system
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/go-rod/rod"
 )
@@ -25,7 +24,6 @@ func (nueip NUEIP) Punch(status PunchStatus) (errs []error) {
 	browser := rod.New().MustConnect()
 	defer func() {
 		browserCloseErr := browser.Close()
-		fmt.Println("browser closed")
 		if browserCloseErr != nil {
 			errs = append(errs, browserCloseErr)
 		}
