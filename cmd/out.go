@@ -15,16 +15,9 @@ func CmdPunchOut() *cobra.Command {
 		Short: "Punch out",
 		Long:  "Punch out NUEiP",
 		Run: func(cmd *cobra.Command, args []string) {
-			if err := nueip.MustValid(); err != nil {
+			err := nueip.Punch(hr_system.PunchOut)
+			if err != nil {
 				fmt.Println(err)
-				return
-			}
-
-			errs := nueip.Punch(hr_system.PunchOut)
-			if len(errs) > 0 {
-				for _, err := range errs {
-					fmt.Println(err)
-				}
 			}
 		},
 	}

@@ -15,16 +15,9 @@ func CmdPunchIn() *cobra.Command {
 		Short: "Punch in",
 		Long:  "Punch in NUEiP",
 		Run: func(cmd *cobra.Command, args []string) {
-			if err := nueip.MustValid(); err != nil {
+			err := nueip.Punch(hr_system.PunchIn)
+			if err != nil {
 				fmt.Println(err)
-				return
-			}
-
-			errs := nueip.Punch(hr_system.PunchIn)
-			if len(errs) > 0 {
-				for _, err := range errs {
-					fmt.Println(err)
-				}
 			}
 		},
 	}
