@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/imfulee/punch/hr_system"
 	"github.com/spf13/cobra"
 )
@@ -13,7 +15,10 @@ func CmdPunchOut() *cobra.Command {
 		Short: "Punch out",
 		Long:  "Punch out NUEiP",
 		Run: func(cmd *cobra.Command, args []string) {
-			nueip.Punch(hr_system.PunchOut)
+			if err := nueip.MustValid(); err != nil {
+				fmt.Println(err)
+				return
+			}
 		},
 	}
 

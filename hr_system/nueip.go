@@ -72,3 +72,11 @@ func (nueip NUEIP) Punch(status PunchStatus) (errs []error) {
 
 	return errs
 }
+
+func (n NUEIP) MustValid() error {
+	if n.Company == "" || n.Password == "" || n.Username == "" {
+		return errors.New("nueip fields are not passed in")
+	}
+
+	return nil
+}
