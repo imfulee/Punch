@@ -2,23 +2,16 @@ package main
 
 import (
 	"fmt"
+	"os"
 
-	"github.com/imfulee/punch/hr_system"
+	"github.com/imfulee/punch/cmd"
 )
 
 func main() {
-	LoadConfig()
-	config := GetConfig()
+	cmdRoot := cmd.CmdRoot()
 
-	nueip := hr_system.NUEIP{
-		Company:  config.company,
-		Username: config.username,
-		Password: config.password,
-		URL:      config.url,
-	}
-
-	punchErrs := nueip.Punch(hr_system.PunchOut)
-	if punchErrs != nil {
-		fmt.Println(punchErrs)
+	if err := cmdRoot.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
