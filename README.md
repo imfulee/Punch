@@ -5,13 +5,22 @@ Punch card automation for my company
 ## Usage
 
 ```bash
-make # build binary
-./punch [in|out] --username={username} --password={password} --company={company}
+# build binary
+make 
+
+# punch command 
+./punch \
+    In|Out \ 
+    --username=USERNAME \
+    --password=PASSWORD \
+    --company=COMPANY
 ```
+
+See [example.md](example/example.md) for example
 
 ## Development
 
-To check if automation works, with browser and dev tools showing
+To check if automation works, with browser and dev tools showing, you could create a go file in the root directory
 
 ```golang
 package main
