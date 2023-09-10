@@ -5,7 +5,8 @@ Punch card automation for my company
 ## Usage
 
 ```bash
-punch [in|out] --useername={username} --password={password} --company={company}
+make # build binary
+./punch [in|out] --username={username} --password={password} --company={company}
 ```
 
 ## Development
@@ -28,3 +29,18 @@ Then run
 ```bash
 go run . -rod=show,devtools
 ```
+
+## Roadmap
+
+Things that I would like to further develop
+
+### Now
+
+- Write better docs on how to use this program
+- Some reporting mechanism that it doesn't work, possibly by sending email?
+- Add container building definitions (ex `docker-compose.yml`)
+
+### Backlog
+
+- Add CI to build container
+- Write test to check if punch in works
