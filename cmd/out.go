@@ -9,10 +9,9 @@ func CmdPunchOut() *cobra.Command {
 	var nueip hr_system.NUEIP
 
 	punchOutCmd := &cobra.Command{
-		Use:              "in",
-		Short:            "Punch in",
-		Long:             "Punch in NUEiP",
-		TraverseChildren: true,
+		Use:   "Out",
+		Short: "Punch out",
+		Long:  "Punch out NUEiP",
 		Run: func(cmd *cobra.Command, args []string) {
 			nueip.Punch(hr_system.PunchOut)
 		},
