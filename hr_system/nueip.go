@@ -91,12 +91,14 @@ func (nueip NUEIP) punch(page *rod.Page, punchButtonSelector string, status Punc
 		return errors.New("punch button selector cannot be empty string")
 	}
 
-	// punch
+	// click the punch in/out button
 	punchButton, err := page.Element(punchButtonSelector)
 	if err != nil {
-		return fmt.Errorf("unable to find punch button: %w", err)
+		return fmt.Errorf("unable to find punch %v button: %w", status, err)
 	}
-	punchButton.MustClick()
+	if err := punchButton.Click(proto.InputMouseButtonLeft, 1); err != nil {
+		return fmt.Errorf("unable to click punch %v button: %w", status, err)
+	}
 
 	// wait for button to be punched
 	punchedButtonSelector := punchButtonSelector + ".punched"
@@ -118,8 +120,7 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 
 	// open browser
 	browser := rod.New()
-	err = browser.Connect()
-	if err != nil {
+	if err := browser.Connect(); err != nil {
 		return fmt.Errorf("unable to connect to browser: %w", err)
 	}
 	defer func() {
@@ -130,10 +131,9 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	}()
 
 	// redirect to NUEiP login page
-	opts := proto.TargetCreateTarget{
+	page, err := browser.Page(proto.TargetCreateTarget{
 		URL: NUEIP_URL,
-	}
-	page, err := browser.Page(opts)
+	})
 	if err != nil {
 		return fmt.Errorf("unable to go to page: %w", err)
 	}
@@ -151,11 +151,11 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 		punchButtonSelector = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(2) > button.punch-btn"
 	}
 
-	if _, err = page.Element(punchButtonSelector); err != nil {
+	if _, err := page.Element(punchButtonSelector); err != nil {
 		return err
 	}
 
-	// dissable geolocation permission
+	// disable geolocation permission
 	if err := nueip.disableGeolocationPerm(page); err != nil {
 		return fmt.Errorf("unable to disable location permissions: %w", err)
 	}
