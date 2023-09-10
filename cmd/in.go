@@ -19,6 +19,13 @@ func CmdPunchIn() *cobra.Command {
 				fmt.Println(err)
 				return
 			}
+
+			errs := nueip.Punch(hr_system.PunchIn)
+			if len(errs) > 0 {
+				for _, err := range errs {
+					fmt.Println(err)
+				}
+			}
 		},
 	}
 
