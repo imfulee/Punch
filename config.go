@@ -10,7 +10,6 @@ type Config struct {
 	username string
 	password string
 	company  string
-	url      string
 }
 
 var config Config
@@ -25,13 +24,11 @@ func LoadConfig() error {
 		username: os.Getenv("USERNAME"),
 		password: os.Getenv("PASSWORD"),
 		company:  os.Getenv("COMPANY"),
-		url:      os.Getenv("URL"),
 	}
 
 	return nil
 }
 
 func GetConfig() Config {
-
 	return config
 }

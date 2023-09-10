@@ -7,11 +7,12 @@ import (
 	"github.com/go-rod/rod"
 )
 
+const NUEIP_URL string = "https://portal.nueip.com/login"
+
 type NUEIP struct {
 	Company  string
 	Username string
 	Password string
-	URL      string
 }
 
 func (nueip NUEIP) Punch(status PunchStatus) (errs []error) {
@@ -30,7 +31,7 @@ func (nueip NUEIP) Punch(status PunchStatus) (errs []error) {
 		}
 	}()
 
-	page := browser.MustPage(nueip.URL)
+	page := browser.MustPage(NUEIP_URL)
 	page.MustWindowMaximize()
 	page.MustWaitStable()
 
