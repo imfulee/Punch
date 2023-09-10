@@ -116,7 +116,7 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 		return errors.New("NUEIP not yet configured")
 	}
 
-	// go to the login page
+	// open browser
 	browser := rod.New()
 	err = browser.Connect()
 	if err != nil {
@@ -129,6 +129,7 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 		}
 	}()
 
+	// redirect to NUEiP login page
 	opts := proto.TargetCreateTarget{
 		URL: NUEIP_URL,
 	}
@@ -137,6 +138,7 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 		return fmt.Errorf("unable to go to page: %w", err)
 	}
 
+	// login to NUEiP
 	if err := nueip.login(page); err != nil {
 		return fmt.Errorf("unable to login: %w", err)
 	}
@@ -158,6 +160,7 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 		return fmt.Errorf("unable to disable location permissions: %w", err)
 	}
 
+	// punch the clock in/out button
 	if err := nueip.punch(page, punchButtonSelector, status); err != nil {
 		return fmt.Errorf("unable to punch button: %w", err)
 	}
