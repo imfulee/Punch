@@ -7,8 +7,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN echo ' 5 9 * * 1-5 /bin/bash /app/scripts/cron.sh In' >> /etc/crontabs/root
-RUN echo ' 55 17 * * 1-5 /bin/bash /app/scripts/cron.sh Out' >> /etc/crontabs/root
+RUN cat ./scripts/crontab >> /etc/crontabs/root
 
 RUN go mod download
 
