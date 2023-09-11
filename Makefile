@@ -1,4 +1,5 @@
 build: 
+	rm punch
 	go build
 
 podman:
