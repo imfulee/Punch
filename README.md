@@ -6,11 +6,11 @@ Punch card automation for my company
 
 ```bash
 # build binary
-make 
+make
 
-# punch command 
+# punch command
 ./punch \
-    In|Out \ 
+    In|Out \
     --username=USERNAME \
     --password=PASSWORD \
     --company=COMPANY
@@ -37,6 +37,28 @@ Then run
 
 ```bash
 go run . -rod=show,devtools
+```
+
+## Container
+
+To build as a container, replace podman with docker if that's what you use.
+
+```bash
+make podman
+```
+
+To run the container, you would need to setup the crontab setting at [crontab](scripts/crontab)
+
+```text
+0 9 * * 1-5 /bin/sh /app/scripts/cron.sh In
+0 17 * * 1-5 /bin/sh /app/scripts/cron.sh Out
+```
+
+and set the cron time of your work manually.
+Then, use the [docker compose template](docker-compose.template.yml) to make your own `docker-compose.yml` and run it with
+
+```bash
+podman-compose up -d
 ```
 
 ## Roadmap
