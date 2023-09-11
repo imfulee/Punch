@@ -50,8 +50,8 @@ make podman
 To run the container, you might want to setup up a cron job
 
 ```text
-0 9 * * 1-5 podman run --rm <punch-image-name> --USERNAME=<username> --PASSWORD=<password> --COMPANY=<company>
-0 17 * * 1-5 podman run --rm <punch-image-name> --USERNAME=<username> --PASSWORD=<password> --COMPANY=<company>
+0 9 * * 1-5 podman run --rm <punch-image-name> /app/punch --USERNAME=<username> --PASSWORD=<password> --COMPANY=<company>
+0 17 * * 1-5 podman run --rm <punch-image-name> /app/punch --USERNAME=<username> --PASSWORD=<password> --COMPANY=<company>
 ```
 
 and manually set the cron time of your work, image name, username etc. 
