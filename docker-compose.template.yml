@@ -1,0 +1,8 @@
+version: '3'
+services:
+  punch:
+    image: localhost/punch:1.0.0
+    environment:
+      - USERNAME=username
+      - PASSWORD=password
+      - COMPANY=company

@@ -1,3 +1,2 @@
-.env
-punch
 docker-compose.yml
+.env*

@@ -1,0 +1,2 @@
+5 9 * * 1-5 /bin/bash /app/cron.sh In
+55 17 * * 1-5 /bin/bash /app/cron.sh Out
