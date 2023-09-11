@@ -1,9 +1,0 @@
-version: '3.7'
-services:
-  punch:
-    image: localhost/punch:1.0.0
-    container_name: punch
-    environment:
-      - USERNAME=username
-      - PASSWORD=password
-      - COMPANY=company

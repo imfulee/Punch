@@ -47,19 +47,14 @@ To build as a container, replace podman with docker if that's what you use.
 make podman
 ```
 
-To run the container, you would need to setup the crontab setting at [crontab](scripts/crontab)
+To run the container, you might want to setup up a cron job
 
 ```text
-0 9 * * 1-5 /bin/sh /app/scripts/cron.sh In
-0 17 * * 1-5 /bin/sh /app/scripts/cron.sh Out
+0 9 * * 1-5 podman run --rm <punch-image-name> --USERNAME=<username> --PASSWORD=<password> --COMPANY=<company>
+0 17 * * 1-5 podman run --rm <punch-image-name> --USERNAME=<username> --PASSWORD=<password> --COMPANY=<company>
 ```
 
-and set the cron time of your work manually.
-Then, use the [docker compose template](docker-compose.template.yml) to make your own `docker-compose.yml` and run it with
-
-```bash
-podman-compose up -d
-```
+and manually set the cron time of your work, image name, username etc. 
 
 ## Roadmap
 
