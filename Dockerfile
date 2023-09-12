@@ -5,7 +5,6 @@ WORKDIR /app
 COPY . .
 
 RUN go mod download
-
-RUN apk add --no-cache make
+RUN apk add --no-cache chromium make
 
 RUN make
