@@ -4,7 +4,6 @@ go 1.21.0
 
 require (
 	github.com/go-rod/rod v0.114.3
-	github.com/joho/godotenv v1.5.1
 	github.com/spf13/cobra v1.7.0
 )
 
