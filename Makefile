@@ -1,9 +1,10 @@
+container_tag = punch:1.1
+
 build: 
-	rm punch
 	go build
 
 podman:
-	podman build --tag punch:1.0.0 .
+	podman build --tag $(container_tag) .
 
 docker:
-	podman build --tag punch:1.0.0 .
+	podman build --tag $(container_tag) .
