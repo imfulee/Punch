@@ -127,7 +127,8 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	if !foundPath {
 		return errors.New("cannot find launcher path")
 	}
-	launcher, err := launcher.New().Bin(path).Launch()
+	// also chromium needs to launch with --no-sandbox when using with root
+	launcher, err := launcher.New().Bin(path).Set("--no-sandbox").Launch()
 	if err != nil {
 		return errors.New("cannot launch launcher")
 	}
