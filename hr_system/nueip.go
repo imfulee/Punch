@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/go-rod/rod"
+	"github.com/go-rod/rod/lib/launcher"
 	"github.com/go-rod/rod/lib/proto"
 )
 
@@ -119,7 +120,15 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	}
 
 	// open browser
-	browser := rod.New()
+	path, foundPath := launcher.LookPath()
+	if !foundPath {
+		return errors.New("cannot find launcher path")
+	}
+	launcher, err := launcher.New().Bin(path).Launch()
+	if err != nil {
+		return errors.New("cannot launch launcher")
+	}
+	browser := rod.New().ControlURL(launcher)
 	if err := browser.Connect(); err != nil {
 		return fmt.Errorf("unable to connect to browser: %w", err)
 	}
