@@ -103,7 +103,8 @@ func (nueip NUEIP) punch(page *rod.Page, punchButtonSelector string, status Punc
 
 	// wait for button to be punched
 	punchedButtonSelector := punchButtonSelector + ".punched"
-	page.MustElement(punchedButtonSelector)
+	page.Element("div.el-message")
+	page.Element(punchedButtonSelector)
 
 	return nil
 }
