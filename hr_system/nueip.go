@@ -120,6 +120,8 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	}
 
 	// open browser
+	// using a custom launcher instead of rod.New because
+	// https://stackoverflow.com/questions/70254649/rod-running-in-docker-alpine-get-error-chrome-linux-chrome-no-such-file-or-dir
 	path, foundPath := launcher.LookPath()
 	if !foundPath {
 		return errors.New("cannot find launcher path")
