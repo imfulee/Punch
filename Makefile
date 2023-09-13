@@ -1,4 +1,4 @@
-container_tag = punch:1.1.2
+container_tag = punch:1.2
 
 build: 
 	go build
