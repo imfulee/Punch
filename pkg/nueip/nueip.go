@@ -3,6 +3,7 @@ package hr_system
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
@@ -25,7 +26,7 @@ func (nueip NUEIP) mustValid() error {
 	return nil
 }
 
-func (nueip NUEIP) login(page *rod.Page) error {
+func (nueip NUEIP) login(page *rod.Page, waitForElement string) error {
 	// input company
 	companyField, err := page.Element("input[name='inputCompany']")
 	if err != nil {
@@ -59,6 +60,11 @@ func (nueip NUEIP) login(page *rod.Page) error {
 	}
 	if err := loginButton.Click(proto.InputMouseButtonLeft, 1); err != nil {
 		return fmt.Errorf("unable to click login button: %w", err)
+	}
+
+	_, err = page.Timeout(10 * time.Second).Element(waitForElement)
+	if err != nil {
+		return fmt.Errorf("unable to redirect in 10 seconds")
 	}
 
 	return nil
@@ -151,11 +157,6 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 		return fmt.Errorf("unable to go to page: %w", err)
 	}
 
-	// login to NUEiP
-	if err := nueip.login(page); err != nil {
-		return fmt.Errorf("unable to login: %w", err)
-	}
-
 	// redirect and wait for punch button to show
 	var punchButtonSelector string
 	if status == PunchIn {
@@ -164,8 +165,9 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 		punchButtonSelector = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(2) > button.punch-btn"
 	}
 
-	if _, err := page.Element(punchButtonSelector); err != nil {
-		return err
+	// login to NUEiP
+	if err := nueip.login(page, punchButtonSelector); err != nil {
+		return fmt.Errorf("unable to login: %w", err)
 	}
 
 	// disable geolocation permission
