@@ -83,7 +83,7 @@ func (nueip NUEIP) disableGeolocationPerm(page *rod.Page) (err error) {
 	return err
 }
 
-func (nueip NUEIP) punch(page *rod.Page, punchButtonSelector string, status PunchStatus) error {
+func (nueip NUEIP) punchClock(page *rod.Page, punchButtonSelector string, status PunchStatus) error {
 	if !status.IsValid() {
 		return errors.New("invalid punch status")
 	}
@@ -174,7 +174,7 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	}
 
 	// punch the clock in/out button
-	if err := nueip.punch(page, punchButtonSelector, status); err != nil {
+	if err := nueip.punchClock(page, punchButtonSelector, status); err != nil {
 		return fmt.Errorf("unable to punch button: %w", err)
 	}
 
