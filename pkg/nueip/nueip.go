@@ -1,4 +1,4 @@
-package hr_system
+package nueip
 
 import (
 	"errors"
