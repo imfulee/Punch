@@ -4,6 +4,7 @@
 
 - Change project structure
   - Use `pkg` directory
+  - Rename package name to `nueip`
   - Remove `interface.go`
   - Change imports for `cmd/`
 
