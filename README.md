@@ -16,8 +16,6 @@ make
     --company=COMPANY
 ```
 
-See [example.md](example/example.md) for example
-
 ## Development
 
 To check if automation works, with browser and dev tools showing, you could create a go file in the root directory
@@ -25,11 +23,11 @@ To check if automation works, with browser and dev tools showing, you could crea
 ```golang
 package main
 
-import "github.com/imfulee/punch/hr_system"
+import hrSystem "github.com/imfulee/punch/pkg/nueip"
 
 func main() {
-    nueip := NUEIP{...} // Initialize a NUEIP instance
-    nueip.Punch(PunchStatus.In) // Place a punch status, declared in hr_system/
+    nueip := hrSystem.NUEIP{...} // Initialize a NUEIP instance
+    nueip.Punch(hrSystem.PunchStatus.In) // Place a punch status, declared in hr_system/
 }
 ```
 
