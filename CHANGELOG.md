@@ -9,6 +9,10 @@
   - Change imports for `cmd/`
   - Update README to reflect this change
 
+### 1.3.1
+
+- Change to use Ubuntu instead of alpine
+
 ## 1.2
 
 - First stable version
