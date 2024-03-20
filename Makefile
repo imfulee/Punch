@@ -7,4 +7,4 @@ podman:
 	podman build --tag $(container_tag) .
 
 docker:
-	podman build --tag $(container_tag) .
+	docker build --tag $(container_tag) .
