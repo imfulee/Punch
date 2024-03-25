@@ -3,7 +3,6 @@ package nueip
 import (
 	"errors"
 	"fmt"
-	"time"
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
@@ -62,9 +61,8 @@ func (nueip NUEIP) login(page *rod.Page, waitForElement string) error {
 		return fmt.Errorf("unable to click login button: %w", err)
 	}
 
-	_, err = page.Timeout(10 * time.Second).Element(waitForElement)
-	if err != nil {
-		return fmt.Errorf("unable to redirect in 10 seconds")
+	if _, err = page.Timeout(DefaultTimeout).Element(waitForElement); err != nil {
+		return errors.Join(errors.New("unable to redirect in 10 seconds"), err)
 	}
 
 	return nil
@@ -108,9 +106,10 @@ func (nueip NUEIP) punchClock(page *rod.Page, punchButtonSelector string, status
 	}
 
 	// wait for button to be punched
-	punchedButtonSelector := punchButtonSelector + ".punched"
-	page.Element("div.el-message")
-	page.Element(punchedButtonSelector)
+	punchedButtonSelector := punchButtonSelector + ".is-punched"
+	if _, err := page.Timeout(DefaultTimeout).Element(punchedButtonSelector); err != nil {
+		return errors.Join(errors.New("unable to redirect in 10 seconds"), err)
+	}
 
 	return nil
 }
@@ -160,9 +159,9 @@ func (nueip NUEIP) Punch(status PunchStatus) error {
 	// redirect and wait for punch button to show
 	var punchButtonSelector string
 	if status == PunchIn {
-		punchButtonSelector = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(1) > button.punch-btn"
+		punchButtonSelector = "div.por-punch-clock__button-group > div.el-row > div:nth-child(1) > button"
 	} else {
-		punchButtonSelector = "div.por-punch-clock__content--button > div.button-row.el-row > div:nth-child(2) > button.punch-btn"
+		punchButtonSelector = "div.por-punch-clock__button-group > div.el-row > div:nth-child(2) > button"
 	}
 
 	// login to NUEiP

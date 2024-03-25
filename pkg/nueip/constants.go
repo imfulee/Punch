@@ -1,10 +1,13 @@
 package nueip
 
+import "time"
+
 type PunchStatus string
 
 const (
-	PunchIn  PunchStatus = "in"
-	PunchOut PunchStatus = "out"
+	PunchIn        PunchStatus = "in"
+	PunchOut       PunchStatus = "out"
+	DefaultTimeout             = 10 * time.Second
 )
 
 func (p PunchStatus) IsValid() bool {
