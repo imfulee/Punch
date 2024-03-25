@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN apt update -y 
-RUN apt install -y make chromium
+RUN apt-get update -y 
+RUN apt-get install -y make chromium
 
 RUN go mod download
 
