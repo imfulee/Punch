@@ -16,27 +16,6 @@ make
     --company=COMPANY
 ```
 
-## Development
-
-To check if automation works, with browser and dev tools showing, you could create a go file in the root directory
-
-```golang
-package main
-
-import hrSystem "github.com/imfulee/punch/pkg/nueip"
-
-func main() {
-    nueip := hrSystem.NUEIP{...} // Initialize a NUEIP instance
-    nueip.Punch(hrSystem.PunchStatus.In) // Place a punch status, declared in hr_system/
-}
-```
-
-Then run
-
-```bash
-go run . -rod=show,devtools
-```
-
 ## Container
 
 To build as a container, replace podman with docker if that's what you use.
