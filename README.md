@@ -37,8 +37,12 @@ and manually set the cron time of your work, image name, username etc.
 
 Things that I would like to further develop
 
-- Add check is user is on old website, and switch to the new one
-- Some reporting mechanism that it doesn't work, possibly by sending email?
-- Add CI to build container
-- Write test to check if punch in works
-- Make sure `rod` uses the right orientation and screen size
+1. ~~Add check is user is on old website, and switch to the new one~~ I think NUEIP updated their website to use the new layout by default now
+2. Some reporting mechanism that it doesn't work, possibly by sending email?
+3. Add CI to build container
+4. Write test to check if punch in works
+5. Make sure `rod` uses the right orientation and screen size
+
+### Workaround
+
+2. Just print the output to a file in a crontab like `COMMAND > file.txt`
