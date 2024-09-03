@@ -18,11 +18,19 @@ type NUEIP struct {
 }
 
 func (nueip NUEIP) mustValid() error {
-	if nueip.Company == "" || nueip.Password == "" || nueip.Username == "" {
-		return errors.New("nueip fields are not passed in")
+	var rtnErr error = nil
+
+	if nueip.Company == "" {
+		rtnErr = errors.Join(rtnErr, errors.New("nueip company is empty string"))
+	}
+	if nueip.Password == "" {
+		rtnErr = errors.Join(rtnErr, errors.New("nueip password is empty string"))
+	}
+	if nueip.Username == "" {
+		rtnErr = errors.Join(rtnErr, errors.New("nueip username is empty string"))
 	}
 
-	return nil
+	return rtnErr
 }
 
 func (nueip NUEIP) login(page *rod.Page, waitForElement string) error {
