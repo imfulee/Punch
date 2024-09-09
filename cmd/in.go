@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"log"
 
 	hrSystem "github.com/imfulee/punch/pkg/nueip"
 	"github.com/spf13/cobra"
@@ -17,7 +17,7 @@ func CmdPunchIn() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			err := nueip.Punch(hrSystem.PunchIn)
 			if err != nil {
-				fmt.Println(err)
+				log.Fatalln(err)
 			}
 		},
 	}
