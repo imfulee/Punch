@@ -3,6 +3,7 @@ package nueip
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/launcher"
@@ -69,8 +70,9 @@ func (nueip NUEIP) login(page *rod.Page, waitForElement string) error {
 		return fmt.Errorf("unable to click login button: %w", err)
 	}
 
-	if _, err = page.Timeout(DefaultTimeout).Element(waitForElement); err != nil {
-		return errors.Join(errors.New("unable to redirect in 10 seconds"), err)
+	timeout := time.Minute
+	if _, err = page.Timeout(timeout).Element(waitForElement); err != nil {
+		return fmt.Errorf("unable to redirect in %s seconds: %w", timeout.String(), err)
 	}
 
 	return nil
